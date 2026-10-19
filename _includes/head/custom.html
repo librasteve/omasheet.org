@@ -1,0 +1,116 @@
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+<link rel="alternate icon" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+<link rel="apple-touch-icon" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+<style>
+  /* Theme base is $doc-font-size: 16px, set on html -- every heading,
+     paragraph, and spacing unit elsewhere is em/rem-relative to this,
+     so shrinking it here scales the whole site's type proportionally
+     rather than needing separate overrides per element. */
+  html {
+    font-size: 14px !important;
+  }
+  .author__urls-note {
+    white-space: normal !important;
+    word-break: normal !important;
+    line-height: 1.5;
+  }
+  /* Both compiled stylesheets (main.css, main-light.css) declare the same
+     "intro" fade-in animation on #main/.masthead/.page__footer/etc.
+     Toggling which stylesheet is active restarts/interrupts it, which can
+     leave an element stuck at the animation's 0% frame (opacity: .01,
+     effectively invisible) instead of settling at 100% (opacity: 1). It's
+     decorative only, so just disable it everywhere. */
+  #main, .masthead, .page__footer, .page__hero, .search-content__inner-wrap {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  /* Code blocks: smaller than the theme's own .75em default, and a
+     2-space tab-size -- source listed with real tab characters renders
+     at the browser default of 8 columns wide with no tab-size set
+     anywhere in the theme, making nested code look far more indented
+     than the source actually is. */
+  /* Fixed px, not em: the theme already wraps .highlight in a
+     .language-xxx.highlighter-rouge div with its own font-size: .75em,
+     so an em value here compounds against that (0.7em landed at ~7px,
+     unreadably small) rather than reading relative to the page's own
+     body text size. */
+  .highlight, .highlight pre, .highlight code {
+    font-size: 12px !important;
+    tab-size: 2;
+    -moz-tab-size: 2;
+  }
+  /* Sidebar (bio links, contribute note) and footer copyright default to
+     the theme's small type sizes (.75em / .6875em) -- nudge both up a
+     little, still smaller than body text but more legible. */
+  .sidebar li {
+    font-size: 0.9em !important;
+  }
+  .page__footer-copyright {
+    font-size: 0.85em !important;
+  }
+  /* Gutter between sidebar and main content: the theme sizes .sidebar to
+     exactly match .page's own reserved padding-inline-end (200px, or
+     300px at the >=80em breakpoint), so they sit flush with no gap.
+     Shrinking .sidebar itself (not .page's padding) leaves that
+     difference as blank space to its right, inside the same reserved
+     slot -- .page's own box is untouched. */
+  .sidebar {
+    width: calc(200px - 1em - 20px) !important;
+  }
+  @media (min-width: 80em) {
+    .sidebar {
+      width: calc(300px - 1em - 20px) !important;
+    }
+  }
+</style>
+
+<!-- Light/dark toggle: assets/css/main.css (dark, this site's default
+     skin) always loads; assets/css/main-light.css is a full second
+     stylesheet compiled from the theme's own "default" skin, loaded
+     disabled and enabled at runtime -- MM skins compile to fixed
+     values, so this is the simplest way to offer both from one theme.
+     Applied synchronously (not on DOMContentLoaded) so a stored "light"
+     preference takes effect before first paint, not after. -->
+<link id="theme-light-css" rel="stylesheet" href="{{ '/assets/css/main-light.css' | relative_url }}" disabled>
+<script>
+  (function () {
+    var KEY = 'omasheet-theme';
+    var lightCss = document.getElementById('theme-light-css');
+
+    function apply(theme) {
+      lightCss.disabled = theme !== 'light';
+      document.documentElement.setAttribute('data-theme', theme);
+      var btn = document.getElementById('theme-toggle');
+      if (btn) {
+        var icon = btn.querySelector('i');
+        if (icon) icon.className = theme === 'light' ? 'fas fa-moon' : 'fas fa-sun';
+      }
+    }
+
+    var theme = localStorage.getItem(KEY) || 'dark';
+    apply(theme); // sets the stylesheet before first paint; #theme-toggle doesn't exist yet in <head>, so its icon is fixed up below once it does
+
+    document.addEventListener('DOMContentLoaded', function () {
+      apply(theme);
+    });
+
+    // Capture phase (the `true` below), not the default bubble phase:
+    // #theme-toggle keeps the .search__toggle class (main.min.js's
+    // greedy-nav width calc explicitly measures "button.search__toggle"
+    // to reserve space for it in the masthead -- a different class name
+    // left it unaccounted-for and broke the responsive/hamburger
+    // collapse). But that class is also what main.min.js's own jQuery
+    // binds its search-overlay click handler to, directly on this
+    // button, regardless of site.search -- capture always runs before
+    // that bubble-phase handler, so stopPropagation() here reliably
+    // stops it from toggling .initial-content before it ever fires.
+    document.addEventListener('click', function (e) {
+      var btn = e.target.closest && e.target.closest('#theme-toggle');
+      if (!btn) return;
+      e.stopPropagation();
+      theme = theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem(KEY, theme);
+      apply(theme);
+    }, true);
+  })();
+</script>

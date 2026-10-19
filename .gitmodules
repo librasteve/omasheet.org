@@ -1,0 +1,3 @@
+[submodule "external/omasheet"]
+	path = external/omasheet
+	url = https://github.com/librasteve/omasheet.git

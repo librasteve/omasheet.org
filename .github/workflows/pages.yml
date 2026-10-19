@@ -1,0 +1,78 @@
+name: Deploy Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+  schedule:
+    # Content pulled in via include_relative (Getting Started, the Guide)
+    # lives in the omasheet repo, not this one -- a push here isn't the
+    # only thing that should refresh the site, so also rebuild daily to
+    # pick up anything pushed upstream.
+    - cron: "17 6 * * *"
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+
+      # actions/checkout only fetches the submodule commit currently
+      # pinned by this repo's own gitlink -- move it to the tip of its
+      # tracked branch so every build picks up whatever's currently on
+      # librasteve/omasheet, without needing a manual
+      # `git submodule update --remote` + commit here first. Plain
+      # checkout, not --merge/--rebase: actions/checkout's shallow fetch
+      # leaves the submodule at a detached commit with no shared history
+      # against the newly-fetched branch tip, so a merge fails with
+      # "refusing to merge unrelated histories" -- CI has no local
+      # submodule changes to preserve anyway, a plain checkout is enough.
+      - name: Update submodule to latest
+        run: git submodule update --remote
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          # Pinned to 3.1: the github-pages gem locks Liquid ~>4.0, whose
+          # taint_check calls Object#tainted? -- removed in Ruby 3.2, so
+          # 3.2+ crashes every render with "undefined method `tainted?'
+          # for nil:NilClass". 3.1 still has it (deprecated, but present).
+          ruby-version: "3.1"
+          bundler-cache: true
+
+      - name: Setup Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Build with Jekyll
+        run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
+        env:
+          JEKYLL_ENV: production
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "_site"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

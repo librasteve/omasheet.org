@@ -1,0 +1,7 @@
+main:
+  - title: "Getting Started"
+    url: /getting-started/
+  - title: "Guide"
+    url: /guide/
+  - title: "Posts"
+    url: /posts/
