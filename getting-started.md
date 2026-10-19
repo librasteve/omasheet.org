@@ -5,6 +5,6 @@ author_profile: true
 ---
 
 {% capture content %}
-{% include_relative external/omasheet/README.md %}
+{% include_relative_raw external/omasheet/README.md %}
 {% endcapture %}
 {{ content }}
