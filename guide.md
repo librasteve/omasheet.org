@@ -5,12 +5,12 @@ author_profile: true
 ---
 
 {% capture content %}
-{% include_relative_raw external/omasheet/docs/format.md %}
+{% include_relative external/omasheet/docs/format.md %}
 
-{% include_relative_raw external/omasheet/docs/expressions.md %}
+{% include_relative external/omasheet/docs/expressions.md %}
 
-{% include_relative_raw external/omasheet/docs/app.md %}
+{% include_relative external/omasheet/docs/app.md %}
 
-{% include_relative_raw external/omasheet/docs/interop.md %}
+{% include_relative external/omasheet/docs/interop.md %}
 {% endcapture %}
 {{ content }}

@@ -4,6 +4,8 @@ Jekyll source for the [omasheet.org](https://omasheet.org) website, built on the
 
 Getting Started and the Guide are pulled in at build time from [`librasteve/omasheet`](https://github.com/librasteve/omasheet) (a git submodule at `external/omasheet`, see `.gitmodules`) via `include_relative`, not duplicated here. `.github/workflows/pages.yml` rebuilds and deploys to GitHub Pages on every push to `main`, and once a day on a schedule so upstream README/docs changes show up without a push here.
 
+`include`/`include_relative` always render the included file as a Liquid template, and some of those upstream docs (`docs/interop.md`) use literal `{{ ... }}` syntax for omasheet's own markdown-report templating, which collides with Liquid's own tag syntax. The build workflow runs `scripts/escape_liquid.rb` against the submodule checkout (never committed upstream) to wrap those files in `{% raw %}` before Jekyll sees them. **To preview locally**, run that script against `external/omasheet/` first (see the workflow for the exact file list), and don't commit from inside the submodule afterwards -- it's now wrapped for the build only.
+
 ---
 
 ## Troubleshooting

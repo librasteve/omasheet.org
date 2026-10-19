@@ -56,6 +56,19 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      # include/include_relative always render as Liquid (even under the
+      # github-pages gem's forced safe mode, which rules out a plugin-based
+      # fix), and upstream docs use literal "{{ ... }}" syntax for
+      # omasheet's own templating -- see scripts/escape_liquid.rb.
+      - name: Escape Liquid syntax in upstream docs
+        run: |
+          ruby scripts/escape_liquid.rb \
+            external/omasheet/README.md \
+            external/omasheet/docs/format.md \
+            external/omasheet/docs/expressions.md \
+            external/omasheet/docs/app.md \
+            external/omasheet/docs/interop.md
+
       - name: Build with Jekyll
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
         env:
