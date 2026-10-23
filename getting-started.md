@@ -7,4 +7,6 @@ author_profile: true
 {% capture content %}
 {% include_relative external/omasheet/README.md %}
 {% endcapture %}
-{{ content }}
+{% assign parts = content | split: '## Install' %}
+## Install
+{{ parts[1] }}
