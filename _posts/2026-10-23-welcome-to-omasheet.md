@@ -4,7 +4,9 @@ date: 2026-10-23T13:30:00
 categories:
   - blog
 tags:
+  - Omarchy
   - Omasheet 
+  - Polars
   - update
 ---
 
@@ -27,7 +29,7 @@ So, I made a wishlist of the things I wanted:
  - text centric 
  - strong types
  - exact maths
- - columnar
+ - arrow columnar data
  - polars queries 
  - rust
 
