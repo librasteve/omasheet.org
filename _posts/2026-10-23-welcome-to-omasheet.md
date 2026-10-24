@@ -1,5 +1,5 @@
 ---
-title: "Welcome to Omasheet!"
+title: "Why Omasheet"
 date: 2026-10-23T13:30:00 
 categories:
   - blog
@@ -9,8 +9,6 @@ tags:
   - Polars
   - update
 ---
-
-# Why Omasheet
 
 For some time now, I have had a hankering to write a new Spreadsheet Application. Sure, Microsoft(r) Excel(r) is ubiquitous and a standard. Google Sheets, LibraOffice, Apple Numbers, etc. have all followed suit over the years. So why bother?
 
