@@ -20,7 +20,7 @@ But the incumbents, with a mass of casual users, have no incentive to fix it.
 
 So, I made a wishlist of the things I wanted:
 
- - easy of use
+ - ease of use
  - markdown friendly
  - strongly typed
  - exact maths
