@@ -10,7 +10,7 @@ tags:
   - update
 ---
 
-![Types](../assets/images/types.png)
+![Types](/assets/images/types.png)
 
 For some time now, I have had a hankering to write a new Spreadsheet Application. Sure, Microsoft(r) Excel(r) is ubiquitous and a standard. Google Sheets, LibraOffice, Apple Numbers, etc. have all followed suit over the years. So why bother?
 
