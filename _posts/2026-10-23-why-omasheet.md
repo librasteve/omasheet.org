@@ -1,7 +1,7 @@
 ---
-title: "Why Omasheet"
-date: 2026-10-23T13:30:00 
-categories:
+
+title: "Why Omasheet" date: 2026-10-23T13:30:00 categories:
+
   - blog
 tags:
   - Omarchy
@@ -20,7 +20,7 @@ But the incumbents, with a mass of casual users, have no incentive to fix it.
 
 So, I made a wishlist of the things I wanted:
 
- - easy of use
+ - ease of use
  - markdown friendly
  - strongly typed
  - exact maths
