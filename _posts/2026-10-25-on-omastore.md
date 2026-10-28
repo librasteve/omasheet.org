@@ -1,9 +1,11 @@
 ---
-title: "Omasheet on OmaStore" date: 2026-10-25T13:30:00 categories:
+title: "Omasheet on OmaStore"
+date: 2026-10-25T13:30:00
+categories:
   - blog
 tags:
   - Omarchy
-  - Omasheet 
+  - Omasheet
   - Polars
   - update
 ---
