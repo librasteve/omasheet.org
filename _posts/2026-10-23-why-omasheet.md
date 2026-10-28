@@ -1,11 +1,11 @@
 ---
-
-title: "Why Omasheet" date: 2026-10-23T13:30:00 categories:
-
+title: "Why Omasheet"
+date: 2026-10-23T13:30:00
+categories:
   - blog
 tags:
   - Omarchy
-  - Omasheet 
+  - Omasheet
   - Polars
   - update
 ---
