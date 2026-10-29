@@ -1,7 +1,9 @@
 ---
-
-title: "Why Omasheet" date: 2026-10-23T13:30:00 categories:
-
+title: "Why Omasheet"
+date: 2026-10-23T13:30:00
+header:
+  teaser: /assets/images/types.png
+categories:
   - blog
 tags:
   - Omarchy
