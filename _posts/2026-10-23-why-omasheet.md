@@ -1,6 +1,7 @@
 ---
 title: "Why Omasheet"
 date: 2026-10-23T13:30:00
+excerpt: "Why I'm building a new spreadsheet app from scratch, and why Omarchy and Claude Code make now the right moment to do it."
 header:
   teaser: /assets/images/types.png
 categories:
