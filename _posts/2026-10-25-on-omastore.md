@@ -7,7 +7,7 @@ categories:
   - blog
 tags:
   - Omarchy
-  - Omasheet 
+  - Omasheet
   - Polars
   - update
 ---
