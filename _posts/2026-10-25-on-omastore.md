@@ -1,5 +1,9 @@
 ---
-title: "Omasheet on OmaStore" date: 2026-10-25T13:30:00 categories:
+title: "Omasheet on OmaStore"
+date: 2026-10-25T13:30:00
+header:
+  teaser: /assets/images/omastore.png
+categories:
   - blog
 tags:
   - Omarchy
