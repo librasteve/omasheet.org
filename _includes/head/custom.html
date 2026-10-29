@@ -64,6 +64,35 @@
       width: calc(300px - 1em - 20px) !important;
     }
   }
+  /* Posts list (/posts/, type="list"): the theme's archive-single.html only
+     renders header.teaser for type="grid", so a local override in
+     _includes/archive-single.html adds the same <img> for list view too and
+     wraps title/meta/excerpt in .archive__item-body. This lays the two out
+     side by side instead of stacking the full-width image above the text. */
+  .list__item .archive__item {
+    display: flex;
+    gap: 1.25em;
+    align-items: flex-start;
+  }
+  .list__item .archive__item-teaser {
+    flex: 0 0 160px;
+    width: 160px;
+  }
+  .list__item .archive__item-teaser img {
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+  .list__item .archive__item-body {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  @media (max-width: 30em) {
+    .list__item .archive__item-teaser {
+      flex-basis: 96px;
+      width: 96px;
+    }
+  }
 </style>
 
 <!-- Light/dark toggle: assets/css/main.css (dark, this site's default

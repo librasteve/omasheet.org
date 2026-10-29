@@ -1,6 +1,7 @@
 ---
 title: "Omasheet on OmaStore"
 date: 2026-10-25T13:30:00
+excerpt: "Omasheet has joined OmaStore, a new graphical way to discover, install and uninstall Omarchy apps."
 header:
   teaser: /assets/images/omastore.png
 categories:
