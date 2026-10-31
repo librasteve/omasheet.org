@@ -34,7 +34,7 @@ And a [link](https://omasheet.org)
 ---
 ```
 
-And here's how it looks (since this post is written in markdown too!
+And here's how it looks (since this post is written in markdown too)!
 
 # Heading
 
