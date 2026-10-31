@@ -1,5 +1,5 @@
 ---
-marktitle: "Omasheet & Markdown: the Text-native spreadsheet"
+title: "Omasheet & Markdown: the Text-native spreadsheet"
 date: 2026-10-31T09:00:00
 excerpt: "Omasheet is described as Spreadsheet meets Markdown for Omarchy, this post aims to explain why."
 header:
