@@ -57,9 +57,7 @@ It has become ubiquitous everywhere that text is used in computing - and it is a
 
 On the other hand.
 
-Spreadsheets such as MS Excel and Google Sheets can all work with a comma separated values (.csv) file. Take a look at the
-markdown table above - yes, that's a set of pipe separated values (the `|` char is called a pipe btw). So, why not just employ
-the markdown table as a way to store sheet data - just spell csv slightly differently? That's the Omasheet strategy.
+Spreadsheets such as MS Excel and Google Sheets can all work with a comma separated values (.csv) file. Take a look at the markdown table above - yes, that's a set of pipe separated values (the `|` char is called a pipe btw). So, why not just employ the markdown table as a way to store sheet data - just spell csv slightly differently? That's the Omasheet strategy.
 
 The Omasheet app not only talks pipe separated values, it is built with them at it's core. Here's the source code of an `.omx` file:
 
@@ -78,7 +76,9 @@ See what I mean. And here's how it looks in the app:
 
 Why it matters: Omasheet (.omx) files can be read in a text editor, searched with standard tools, edited in code reviews, stored in Git, and generated or modified by scripts and AI agents. Spreadsheet content becomes a first-class part of a software or documentation repository.
 
-Compared with most spreadsheet apps like Excel and Google Sheets: Their native workbook formats are not designed for human-readable source diffs. Omasheet makes the source itself readable. This month saw Excel's 41st birthday - congratulations! But time for a fresh approach.
+Contrast this with established spreadsheet formats like Excel's XLSX. Although XLSX is built on XML, its data is packaged inside a ZIP archive, spread across multiple interdependent files. This makes the underlying source difficult to read, review and track in version control.
+
+This month saw Excel's 41st birthday - congratulations! But time for a fresh approach.
 
 
 ~librasteve
