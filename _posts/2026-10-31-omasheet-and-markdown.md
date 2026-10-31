@@ -13,8 +13,6 @@ tags:
   - update
 ---
 
-![Markdown](/assets/images/spreadmeetsmd.png)
-
 Markdown was invented by John Gruber as an easy way to type in content for an HTML website. Something like:
 
 ```
