@@ -17,11 +17,14 @@ Last time we saw how Omasheet stores its data in a markdown-like text file (`.om
 
 Here's a new .omx file to check out:
 
+---
+
 # Fruit report
 
 Here are the fruit sales for {{ today() }}.
 
 '''omx
+
 sheet Fruit
 
 | Item   | Price | Qty | Total |
@@ -30,9 +33,12 @@ sheet Fruit
 | Pear   | 0.75  | 3   | *     |   
 
 Total := Price * Qty 
+
 '''
 
 Altogether that comes to ${{ Fruit.Total.sum() }} of sales, across {{ Fruit.Item.count() }} kinds of fruit.
+
+---
 
 This is "markdown plus" of course. Use `omasheet render file.md --html` to get a pretty version:
 
