@@ -1,6 +1,6 @@
 ---
 title: "Markdown Reports: Embed your data with Omasheet"
-date: 2026-11-08T09:00:00
+date: 2026-11-08T01:00:00
 excerpt: "Omasheet is a great way to embed data tables into a markdown document, this post aims to explain why."
 header:
   teaser: /assets/images/spreadmeetsmd.png
