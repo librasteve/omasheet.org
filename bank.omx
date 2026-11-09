@@ -1,0 +1,33 @@
+const OpeningBalance = 2450.37
+
+sheet Transactions
+
+Date : Date
+MoneyOut : Decimal
+MoneyIn : Decimal
+Balance : Decimal
+Month := Date.month_start()
+Net := fill_null(MoneyIn, 0) - fill_null(MoneyOut, 0)
+
+| Date       | Description               | Category      | Type           | MoneyOut | MoneyIn | Balance | Month | Net |
+| ---------- | ------------------------- | ------------- | -------------- | -------- | ------- | ------- | ----- | --- |
+| 2026-08-01 | RENT - OAKWOOD PROPERTIES | Housing       | Standing Order | 1150.00  |         | 1300.37 | *     | *   |
+...and so on
+
+sheet Monthly := Transactions |> group_by(Month) |> agg(MoneyIn := MoneyIn.sum(), MoneyOut := MoneyOut.sum(), Net := Net.sum(), ClosingBalance := Balance.last(), Transactions := Date.len())
+
+sheet Spending := Transactions |> filter(MoneyOut.is_not_null() and Category != 'Transfer') |> group_by(Category) |> agg(Total := MoneyOut.sum(), Count := MoneyOut.len(), Average := round(MoneyOut.mean(), 2))
+
+sheet CategoryShare := Transactions |> filter(MoneyOut.is_not_null() and Category != 'Transfer') |> group_by(Category) |> agg(Total := MoneyOut.sum(), Count := MoneyOut.len(), Average := round(MoneyOut.mean(), 2), Share := (MoneyOut.sum() / Spending.Total.sum()).Percent)
+
+sheet ByCategory := CategoryShare |> sort(Total, desc)
+
+sheet Merchants := Transactions |> filter(MoneyOut.is_not_null() and Category != 'Transfer' and Category != 'Housing') |> group_by(Description) |> agg(Total := MoneyOut.sum(), Visits := MoneyOut.len())
+
+sheet TopMerchants := Merchants |> sort(Total, desc) |> head(10)
+
+sheet Largest := Transactions |> filter(MoneyOut.is_not_null() and not (Category in ['Housing', 'Transfer', 'Bills', 'Utilities'])) |> sort(MoneyOut, desc) |> select(Date, Description, Category, MoneyOut) |> head(10)
+
+sheet PaymentTypes := Transactions |> filter(MoneyOut.is_not_null()) |> group_by(Type) |> agg(Total := MoneyOut.sum(), Count := MoneyOut.len())
+
+sheet ByPaymentType := PaymentTypes |> sort(Total, desc)
