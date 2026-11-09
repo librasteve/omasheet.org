@@ -28,7 +28,20 @@ Last time we saw how to embed data in a markdown document. This time it is a rea
 
 All of the numbers in the report text are computed with `{{...}}` expressions straight from the named columns in the `.omx` file, and the arithmetic is exact decimal. Change the data and `omasheet render report.md --html` gives you a fresh report.
 
-Watch it here: [Omasheet: bank transactions report](https://youtu.be/PJvYvKeAmqY) (about 7 minutes).
+That was done via a very, very simple AI request:- "make a report from that .csv using Omasheet". And you can imagine that a wide variety of prompt controls could be done from colours and layout, through to details on the analysis level and can be setup to be done on a recurring basis.
+
+So, why Omasheet?
+
+The key here is separation of concerns.
+
+- keep the data in a data file (here, a `.csv`)
+- [have your AI] put the queries and extracts in the markdown-like Omasheet format
+
+That way you are not paying tokens to ship data points up and down. And you remove the risk of a common AI transposition or math error from the equation.
+
+And the Omasheet AI skill means that this is delightfully easy.
+
+Why not try it yourself?
 
 
 ~librasteve
