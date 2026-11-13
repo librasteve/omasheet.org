@@ -15,7 +15,7 @@ tags:
 
 SpaceX Flight 15 is planned for today, Friday 13th November 2026, so here is a new showcase example: a vignette of the flight worked entirely in Omasheet.
 
-[![Starship Flight 15 vignette: launch](/assets/images/flight15-launch.png)](https://github.com/librasteve/omasheet/blob/dev/examples/showcase/flight15-vignette.html)
+[![Starship Flight 15 vignette: launch](/assets/images/flight15-launch.png)](/assets/images/flight15-report.png)
 
 It takes Booster 22 and Ship 42 through three stages of the flight: the launch, the methane and oxygen they burn, and the heat of the ship's return after about 14 orbits. Every number in the text is a `{{...}}` expression, and every table is a `select` over a sheet in the data file.
 
