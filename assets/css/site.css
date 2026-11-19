@@ -58,7 +58,7 @@ h1 .run { display: block; color: var(--accent); text-shadow: 0 0 34px rgba(126,2
 .btn.primary { background: var(--accent); border-color: var(--accent); color: #10121a; box-shadow: 0 8px 34px rgba(126,224,200,.3); }
 .btn.primary:hover { box-shadow: 0 10px 44px rgba(126,224,200,.5); }
 
-.window { margin: 56px auto 0; max-width: 980px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,.55), 0 0 80px rgba(126,224,200,.1); }
+.window { margin: 56px auto 0; max-width: 1072px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); overflow: hidden; box-shadow: 0 30px 90px rgba(0,0,0,.55), 0 0 80px rgba(126,224,200,.1); }
 .bar { display: flex; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
 .bar i { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
 .window img { display: block; width: 100%; height: auto; }
@@ -83,6 +83,10 @@ code.i { padding: 2px 7px; border-radius: 6px; background: var(--raised); color:
 .shot img { display: block; width: 100%; height: auto; }
 
 .term { border: 1px solid var(--line); border-radius: 14px; background: #0f1017; box-shadow: 0 20px 60px rgba(0,0,0,.45); overflow: hidden; }
+.feature.codewide { grid-template-columns: 0.8fr 1.6fr; }
+.term.file { background: #101010; }
+.term .fbar { padding: 14px 24px; border-bottom: 1px solid #2b2b2b; background: #1b1b1b; color: #b5b5b5; font: 14px var(--mono); }
+.term.file pre { font-size: clamp(10.5px, 1.18vw, 12.6px); line-height: 1.75; color: #d6d6d6; }
 .term.wide { max-width: 900px; margin: 44px auto 0; }
 .term pre { margin: 0; padding: 20px 24px; overflow-x: auto; font-size: 14.5px; line-height: 1.85; color: var(--text); }
 .term .p { color: var(--green); user-select: none; }
@@ -119,7 +123,9 @@ footer .right { margin-left: auto; }
 }
 @media (max-width: 860px) {
   nav .links a:not(.keep) { display: none; }
-  .feature, .feature.flip { grid-template-columns: 1fr; gap: 22px; margin-top: 64px; }
+  .feature, .feature.flip, .feature.codewide { grid-template-columns: 1fr; gap: 22px; margin-top: 64px; }
+  .window { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .window img { width: 880px; max-width: none; }
   .feature.flip .words { order: 0; }
   .cards, .install { grid-template-columns: 1fr; }
   section { padding-top: 72px; }

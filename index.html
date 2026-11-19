@@ -19,8 +19,8 @@ image: /r/v0.1.12/card.png
   <ul class="facts">
     <li>one Rust binary</li>
     <li>built on Polars</li>
+    <li>Omarchy first</li>
     <li>macOS · Windows · Linux</li>
-    <li>no account, no cloud</li>
     <li>open source, MIT</li>
   </ul>
 </header>
@@ -29,25 +29,26 @@ image: /r/v0.1.12/card.png
   <h2>What a binary workbook cannot do</h2>
   <p class="sub">Formulas are written once per column, files are plain text, and numbers keep their meaning. A spreadsheet you can understand, check, version and automate.</p>
 
-  <div class="feature rise">
+  <div class="feature codewide rise">
     <div class="words">
       <div class="kicker">Text</div>
       <h3>The file is the spreadsheet</h3>
       <p>An <code class="i">.omx</code> file is readable text that diffs cleanly in Git, reviews like code and reads like a small typed program over its own data.</p>
       <p>A formula is written once and applies down the whole column, and the file round-trips through the app.</p>
     </div>
-    <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="k">const</span> TaxRate = <span class="v">20%</span>
+    <div class="term file" role="group" aria-label="The file benchmark.omx. The column format lines are omitted for brevity."><div class="fbar">benchmark.omx</div><pre><span class="k">const</span> Target = <span class="v">50</span>
 
-<span class="k">sheet</span> Sales
+<span class="k">sheet</span> Benchmark
 
-| Month | Revenue | Cost | Profit | Tax |
-| ----- | ------- | ---- | ------ | --- |
-| Jan   | 10000   | 6000 | *      | *   |
-| Feb   | 12000   | 7000 | *      | *   |
+| Run             | FileSize | Rows     | Cold | Warm | Change | Beats_50ms |
+<span class="c">| --------------- | -------- | -------- | ---- | ---- | ------ | ---------- |</span>
+| CSV, large      | 1060     | 20800000 | 57   | 27   | <span class="k">*</span>      | <span class="k">*</span>          |
+| XLSX, large     | 42       | 1048575  |      | 23   | <span class="k">*</span>      | <span class="k">*</span>          |
+| Parquet, medium | 236      | 20800000 | 12.8 | 10.8 | <span class="k">*</span>      | <span class="k">*</span>          |
+| Parquet, large  | 610      | 23900000 | 45.6 | 37   | <span class="k">*</span>      | <span class="k">*</span>          |
 
-Profit  <span class="k">:=</span> Revenue - Cost
-Tax     <span class="k">:=</span> Profit * TaxRate
-Running <span class="k">:=</span> [Revenue; 0..*].<span class="t">sum</span>()</pre></div>
+Change <span class="k">:=</span> (Warm/Cold-1).Percent
+Beats_50ms <span class="k">:=</span> Cold &lt;= Target</pre></div>
   </div>
 
   <div class="feature flip rise">
