@@ -15,6 +15,18 @@ a:hover { text-decoration: underline; }
 code, pre { font-family: var(--mono); }
 .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
 
+/* Graph paper: a very faint grid behind everything, fixed so the page scrolls over it. */
+body::before { content: ""; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background-image:
+    linear-gradient(rgba(126, 224, 200, .06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(126, 224, 200, .06) 1px, transparent 1px),
+    linear-gradient(rgba(122, 162, 247, .035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(122, 162, 247, .035) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+  -webkit-mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 100%);
+  mask-image: radial-gradient(ellipse 85% 75% at 50% 35%, #000 25%, transparent 100%); }
+
 .sky { position: absolute; inset: 0 0 auto 0; height: 900px; z-index: -1; overflow: hidden; pointer-events: none; }
 .sky::before, .sky::after { content: ""; position: absolute; border-radius: 50%; filter: blur(90px); opacity: .32; }
 .sky::before { width: 620px; height: 620px; left: -140px; top: -260px; background: var(--blue); animation: drift 16s ease-in-out infinite alternate; }
