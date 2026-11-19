@@ -52,7 +52,7 @@ exclude:
   - vendor/ruby/
   - external/
   - tools/
-  - messages.txt
+  - messages.md
 
 # Plugins (previously gems:)
 plugins:
