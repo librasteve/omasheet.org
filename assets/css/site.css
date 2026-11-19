@@ -62,7 +62,6 @@ h1 .run { display: block; color: var(--accent); text-shadow: 0 0 34px rgba(126,2
 .bar { display: flex; gap: 8px; padding: 12px 14px; border-bottom: 1px solid var(--line); }
 .bar i { width: 11px; height: 11px; border-radius: 50%; background: var(--line); }
 .window img { display: block; width: 100%; height: auto; }
-.window .crop { aspect-ratio: 1636 / 372; overflow: hidden; }
 
 .facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 44px 0 0; padding: 0; list-style: none; }
 .facts li { padding: 7px 14px; border: 1px solid var(--line); border-radius: 999px; font: 14px var(--mono); background: rgba(26,27,38,.7); }
