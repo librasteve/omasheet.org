@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: docs
 permalink: /guide/
 title: "Guide"
 wide: true

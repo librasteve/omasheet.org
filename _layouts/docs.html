@@ -1,0 +1,53 @@
+---
+layout: base
+---
+<div class="docs">
+  <aside class="docnav" id="docnav" aria-label="Contents"></aside>
+  <main class="doc">
+    <details class="docnav-m" id="docnav-m"><summary>On this page</summary></details>
+    {% if page.title %}<div class="page-head"><h1>{{ page.title }}</h1></div>{% endif %}
+    <div class="prose" id="doc">{{ content }}</div>
+  </main>
+</div>
+<script>
+(function () {
+  var doc = document.getElementById("doc");
+  var heads = doc.querySelectorAll("h1[id], h2[id]");
+  if (heads.length < 3) { document.querySelector(".docs").classList.add("nonav"); return; }
+  var html = "", open = false;
+  heads.forEach(function (h) {
+    var text = h.textContent.trim(), link = '<a href="#' + h.id + '" data-id="' + h.id + '">' + text.replace(/</g, "&lt;") + "</a>";
+    if (h.tagName === "H1") {
+      if (open) html += "</ul></div>";
+      html += '<div class="grp"><div class="gt">' + link + "</div><ul>"; open = true;
+    } else {
+      if (!open) { html += '<div class="grp"><ul>'; open = true; }
+      html += "<li>" + link + "</li>";
+    }
+  });
+  if (open) html += "</ul></div>";
+  document.getElementById("docnav").innerHTML = html;
+  var m = document.getElementById("docnav-m");
+  m.insertAdjacentHTML("beforeend", '<nav>' + html + '</nav>');
+  m.addEventListener("click", function (e) { if (e.target.tagName === "A") m.open = false; });
+
+  var links = {};
+  document.querySelectorAll("#docnav a").forEach(function (a) { links[a.dataset.id] = a; });
+  var current = null;
+  function setActive(id) {
+    if (id === current || !links[id]) return;
+    if (current) links[current].classList.remove("on");
+    links[id].classList.add("on"); current = id;
+    var box = document.getElementById("docnav"), a = links[id];
+    if (a.offsetTop < box.scrollTop + 40 || a.offsetTop > box.scrollTop + box.clientHeight - 60) box.scrollTop = a.offsetTop - 120;
+  }
+  function spy() {
+    var y = window.scrollY + 110, best = heads[0].id;
+    heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h.id; });
+    setActive(best);
+  }
+  window.addEventListener("scroll", spy, { passive: true });
+  window.addEventListener("resize", spy);
+  spy();
+})();
+</script>

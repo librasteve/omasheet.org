@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: docs
 permalink: /getting-started/
 title: "Getting started"
 ---
