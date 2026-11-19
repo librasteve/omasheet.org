@@ -117,6 +117,24 @@ budget with VAT, in pounds, to the penny.
   </div>
 </section>
 
+<section id="posts">
+  <h2>Latest posts</h2>
+  <p class="sub">Why Omasheet exists, how it works, and what you can build with it.</p>
+  <div class="postlist" style="margin-top:44px">
+  {% for post in site.posts limit:3 %}
+    <a class="postcard{% unless post.header.teaser %} noimg{% endunless %} rise" href="{{ post.url }}">
+      <div>
+        <div class="kicker">{{ post.date | date: "%-d %B %Y" }}</div>
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.excerpt | strip_html | strip }}</p>
+      </div>
+      {% if post.header.teaser %}<div class="thumb"><img src="{{ post.header.teaser }}" alt="" loading="lazy"></div>{% endif %}
+    </a>
+  {% endfor %}
+  </div>
+  <p class="note"><a href="/posts/">All posts →</a></p>
+</section>
+
 <section id="cli">
   <h2>The same on the command line</h2>
   <p class="sub">Everything the app does is scriptable, so sheets work in CI, in Git hooks and in agent loops.</p>

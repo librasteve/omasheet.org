@@ -44,6 +44,9 @@ Section: And the rest (six cards)
   Native, everywhere: one Rust binary with a Qt app on macOS, Windows, Arch and Omarchy that follows your dark and light mode.
   Listed in OmaStore: find Omasheet under Office in the community app store for Omarchy and install it with one click.
 
+Section: Latest posts
+  The three newest posts, each with its summary, lead to the full list of notes on building Omasheet.
+
 Section: The same on the command line
   Everything the app does is scriptable, so sheets work in CI, in Git hooks and in agent loops.
 
@@ -79,7 +82,7 @@ Site
   Install (anchor)           /#install
   Getting started            /getting-started/
   Guide                      /guide/
-  Posts                      /posts/
+  Posts                      /posts/   (nav, footer and the homepage's Latest posts section)
   Posts feed                 /feed.xml
 
 Posts
