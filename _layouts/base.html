@@ -32,6 +32,12 @@
 </div>
 {% include site-footer.html %}
 <script>
+  (function () {
+    var bar = document.querySelector(".topbar");
+    function onScroll() { bar.classList.toggle("scrolled", window.scrollY > 12); }
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  })();
   document.querySelectorAll(".copy").forEach(function (b) {
     b.addEventListener("click", function () {
       var t = b.parentNode.querySelector("pre").textContent.trim();

@@ -21,8 +21,10 @@ code, pre { font-family: var(--mono); }
 .sky::after { width: 520px; height: 520px; right: -120px; top: -120px; background: var(--accent); animation: drift 20s ease-in-out infinite alternate-reverse; }
 @keyframes drift { to { transform: translate(60px, 50px) scale(1.12); } }
 
-.topbar { position: sticky; top: 0; z-index: 50; background: rgba(19, 20, 28, .74); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border-bottom: 1px solid rgba(47, 52, 73, .6); }
-nav { display: flex; align-items: center; gap: 28px; padding: 14px 0; }
+.topbar { position: sticky; top: 0; z-index: 50; background: rgba(19, 20, 28, 0); -webkit-backdrop-filter: blur(0) saturate(1); backdrop-filter: blur(0) saturate(1); border-bottom: 1px solid rgba(47, 52, 73, 0); transition: background-color .3s ease, border-color .3s ease, -webkit-backdrop-filter .3s ease, backdrop-filter .3s ease, box-shadow .3s ease; }
+.topbar.scrolled { background: rgba(19, 20, 28, .78); -webkit-backdrop-filter: blur(14px) saturate(1.4); backdrop-filter: blur(14px) saturate(1.4); border-bottom-color: rgba(47, 52, 73, .7); box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
+@media (prefers-reduced-motion: reduce) { .topbar { transition: none; } }
+nav { display: flex; align-items: center; gap: 28px; padding: 18px 0; }
 nav .brand { display: flex; align-items: center; gap: 12px; color: var(--fg); font: 700 20px var(--mono); }
 nav .brand img { width: 34px; height: 34px; }
 nav .links { margin-left: auto; display: flex; gap: 26px; font-size: 15px; }
