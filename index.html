@@ -1,41 +1,41 @@
 ---
 layout: base
 permalink: /
-title: "Omasheet: a plain-text spreadsheet with units, types and exact numbers"
-description: "What Markdown is to words, Omasheet is to numbers: a type-checked plain-text spreadsheet with SI units, exact arithmetic and Git-friendly files."
+title: "Omasheet: a text-native spreadsheet with units, types and exact numbers"
+description: "What Markdown is to words, Omasheet is to numbers: a text-native spreadsheet for technical workflows, with exact arithmetic, SI units, scientific uncertainty and typed columns."
 image: /r/v0.1.12/card.png
 ---
 <header class="hero" id="top">
   <span class="badge"><b>●</b> plain text · typed · exact · open source</span>
   <h1>What Markdown is to words,<span class="run">Omasheet is to numbers.<span class="cursor"></span></span></h1>
-  <p class="lead">A <b>plain-text spreadsheet</b> that checks its own numbers: <b>SI units</b> that understand dimensions, <b>exact</b> fractions and decimals, and typed columns. Files you can diff, review and hand to an AI.</p>
+  <p class="lead">A <b>text-native spreadsheet</b> for technical workflows, with <b>exact</b> arithmetic, <b>SI units</b>, scientific <b>uncertainty</b> and typed columns. In files you can diff, review and hand to an AI.</p>
   <div class="cta">
     <a class="btn primary" href="#install">Install</a>
     <a class="btn" href="https://github.com/librasteve/omasheet">Star it on GitHub</a>
   </div>
   <div class="window">
     <div class="bar"><i></i><i></i><i></i></div>
-    <div class="crop"><img src="/assets/images/screenshot.png" alt="The Omasheet app showing a Sales sheet with typed, calculated columns"></div>
+    <div class="crop"><img src="/assets/images/screenshot.png" alt="The Omasheet app showing a Sales sheet where Profit, Tax and Running are calculated columns"></div>
   </div>
   <ul class="facts">
-    <li>pure Rust, one binary</li>
-    <li>dataframes by Polars</li>
+    <li>one Rust binary</li>
+    <li>built on Polars</li>
     <li>macOS · Windows · Linux</li>
     <li>no account, no cloud</li>
-    <li>MIT</li>
+    <li>open source, MIT</li>
   </ul>
 </header>
 
 <section id="features">
   <h2>What a binary workbook cannot do</h2>
-  <p class="sub">Formulas are written once per column, files are text, and every number keeps its meaning.</p>
+  <p class="sub">Formulas are written once per column, files are plain text, and numbers keep their meaning. A spreadsheet you can understand, check, version and automate.</p>
 
   <div class="feature rise">
     <div class="words">
       <div class="kicker">Text</div>
       <h3>The file is the spreadsheet</h3>
-      <p>An <code class="i">.omx</code> file holds constants, functions and sheets as readable text. It diffs cleanly in Git, reviews like code, and round-trips through the app.</p>
-      <p>A formula is written once and applies down the whole column, so a sheet reads like a small, typed program over its own data.</p>
+      <p>An <code class="i">.omx</code> file is readable text that diffs cleanly in Git, reviews like code and reads like a small typed program over its own data.</p>
+      <p>A formula is written once and applies down the whole column, and the file round-trips through the app.</p>
     </div>
     <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="k">const</span> TaxRate = <span class="v">20%</span>
 
@@ -55,8 +55,8 @@ Running <span class="k">:=</span> [Revenue; 0..*].<span class="t">sum</span>()</
     <div class="words">
       <div class="kicker">Units</div>
       <h3>Numbers that know their dimensions</h3>
-      <p>Write <code class="i">5kg + 300g</code> and get <code class="i">5.3kg</code>. Add a mass to a length and you get an error that says so, not a meaningless number.</p>
-      <p>All the SI prefixes, angles, time, binary data sizes, and uncertainty that carries through your arithmetic.</p>
+      <p><code class="i">5kg + 300g</code> is <code class="i">5.3kg</code>; <code class="i">5kg + 3m</code> is an error that explains why. Dimensional analysis catches mistakes before they become plausible results.</p>
+      <p>All the SI prefixes, angles, time and binary data sizes, with uncertainty that carries through your arithmetic.</p>
     </div>
     <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">&gt;</span> 5kg + 300g
 <span class="k">5.3kg</span>
@@ -73,9 +73,9 @@ Running <span class="k">:=</span> [Revenue; 0..*].<span class="t">sum</span>()</
   <div class="feature rise">
     <div class="words">
       <div class="kicker">Types</div>
-      <h3>Exact where it counts</h3>
+      <h3>Exact numbers, scientific meaning</h3>
+      <p>Fractions are exact without limit, Decimals keep money to the penny, and scientific notation carries uncertainty. From <code class="i">1/3 + 1/6 = 1/2</code> to CODATA constants, numbers mean what they say.</p>
       <p>The numeric types run <code class="i">Integer</code> &lt; <code class="i">Fraction</code> &lt; <code class="i">Decimal</code> &lt; <code class="i">Float</code> &lt; <code class="i">Scientific</code> &lt; <code class="i">Complex</code>, from exact to wide-ranging.</p>
-      <p>A <code class="i">Fraction</code> is exact without limit, so <code class="i">1/3 + 1/6</code> is <code class="i">1/2</code>. A <code class="i">Decimal(2)</code> column keeps money to the penny.</p>
     </div>
     <div class="shot"><img src="/assets/images/types.png" alt="A sheet of typed columns: Text, Int, Decimal, Fraction, Percent, Num, Complex and Bool" loading="lazy"></div>
   </div>
@@ -84,7 +84,7 @@ Running <span class="k">:=</span> [Revenue; 0..*].<span class="t">sum</span>()</
     <div class="words">
       <div class="kicker">Reports</div>
       <h3>Markdown in, finished report out</h3>
-      <p>Put a sheet inside a Markdown document and render it to HTML with the same displays as the grid. The numbers and the prose stay in one reviewable file.</p>
+      <p>Put a sheet inside a Markdown document and render it to HTML, so calculations, data and explanation live together in one reviewable file.</p>
     </div>
     <div class="shot"><img src="/assets/images/spreadmeetsmd.png" alt="A spreadsheet and a Markdown report side by side" loading="lazy"></div>
   </div>
@@ -92,8 +92,8 @@ Running <span class="k">:=</span> [Revenue; 0..*].<span class="t">sum</span>()</
   <div class="feature rise">
     <div class="words">
       <div class="kicker">AI</div>
-      <h3>Spreadsheets an LLM can't quietly break</h3>
-      <p>Omasheet ships an agent skill, so Claude and friends write <code class="i">.omx</code> files that type-check. When the model gets a unit or a type wrong, you get an error, not a plausible wrong total.</p>
+      <h3>Spreadsheets built for agents</h3>
+      <p>An agent skill lets Claude and friends write <code class="i">.omx</code> files that are checked for types and units, turning many silent spreadsheet mistakes into explicit errors.</p>
       <p><a href="https://github.com/librasteve/omasheet/blob/main/skill/omasheet/SKILL.md">Read the skill →</a></p>
     </div>
     <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="c"># in Claude Code</span>
@@ -108,18 +108,18 @@ budget with VAT, in pounds, to the penny.
 <section>
   <h2>And the rest</h2>
   <div class="cards">
-    <div class="card rise"><h4>Windowed columns</h4><p><code>cum_sum</code>, <code>diff</code>, <code>rank</code> and <code>rolling_mean</code>, partitioned with <code>by</code>, run in Polars.</p></div>
-    <div class="card rise"><h4>Built-in constants</h4><p><code>pi</code>, <code>c</code>, <code>planck</code>, <code>kB</code>, <code>NA</code> and more, from the 2019 SI and CODATA 2022.</p></div>
-    <div class="card rise"><h4>Real interchange</h4><p>Import and export XLSX, CSV, JSON and Parquet, with types and units kept where the format allows.</p></div>
-    <div class="card rise"><h4>Booleans and logic</h4><p>Symbol formats such as <code>✓✗</code>, logic functions and gate operators, set right in the grid.</p></div>
-    <div class="card rise"><h4>Native, everywhere</h4><p>One Rust binary with a Qt app on macOS, Windows, Arch and Omarchy. It follows your dark and light mode.</p></div>
-    <div class="card rise"><h4>Listed in OmaStore</h4><p>Find it under Office in the community app store for Omarchy, and install with one click.</p></div>
+    <div class="card rise"><h4>Windowed columns</h4><p><code>cum_sum</code>, <code>diff</code>, <code>rank</code> and <code>rolling_mean</code> run on Polars, with partitioning using <code>by</code>.</p></div>
+    <div class="card rise"><h4>Built-in constants</h4><p><code>pi</code>, <code>c</code>, <code>planck</code>, <code>kB</code> and <code>NA</code> are ready in every file, drawing on the 2019 SI and CODATA 2022.</p></div>
+    <div class="card rise"><h4>Real interchange</h4><p>Import and export XLSX, CSV, JSON and Parquet, preserving types and units wherever the format allows.</p></div>
+    <div class="card rise"><h4>Booleans and logic</h4><p>Symbol formats such as ticks and crosses, logic functions and gate operators, all directly in the grid.</p></div>
+    <div class="card rise"><h4>Native, everywhere</h4><p>One Rust binary with a Qt app for macOS, Windows, Arch and Omarchy, following your dark and light mode.</p></div>
+    <div class="card rise"><h4>Listed in OmaStore</h4><p>Find Omasheet under Office in the Omarchy community app store and install it with one click.</p></div>
   </div>
 </section>
 
 <section id="posts">
   <h2>Latest posts</h2>
-  <p class="sub">Why Omasheet exists, how it works, and what you can build with it.</p>
+  <p class="sub">The latest notes on building a better spreadsheet: why, how, and what you can do with it.</p>
   <div class="postlist" style="margin-top:44px">
   {% for post in site.posts limit:3 %}
     <a class="postcard{% unless post.header.teaser %} noimg{% endunless %} rise" href="{{ post.url }}">
@@ -137,7 +137,7 @@ budget with VAT, in pounds, to the penny.
 
 <section id="cli">
   <h2>The same on the command line</h2>
-  <p class="sub">Everything the app does is scriptable, so sheets work in CI, in Git hooks and in agent loops.</p>
+  <p class="sub">Everything the app does is scriptable, so sheets work in CI, Git hooks and AI-agent loops.</p>
   <div class="term wide"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> omasheet                              <span class="c"># the app, on a new file</span>
 <span class="p">$</span> omasheet examples/budget.omx          <span class="c"># open an .omx, .csv, .json or .xlsx</span>
 <span class="p">$</span> omasheet print examples/budget.omx    <span class="c"># print the calculated file</span>
