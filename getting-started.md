@@ -1,7 +1,7 @@
 ---
-layout: single
+layout: page
 permalink: /getting-started/
-author_profile: true
+title: "Getting started"
 ---
 
 {% capture content %}

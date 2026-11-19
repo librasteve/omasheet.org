@@ -1,7 +1,8 @@
 ---
-layout: single
+layout: page
 permalink: /guide/
-author_profile: true
+title: "Guide"
+wide: true
 ---
 
 {% capture content %}

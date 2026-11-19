@@ -26,7 +26,7 @@ Last time we saw how to embed data in a markdown document. This time it is a rea
 1. the largest discretionary purchases
 1. how payments were made
 
-All of the numbers in the report text are computed with `{{...}}` expressions straight from the named columns in the `.omx` file, and the arithmetic is exact decimal. Change the data and `omasheet render report.md --html` gives you a fresh report.
+All of the numbers in the report text are computed with `{% raw %}{{...}}{% endraw %}` expressions straight from the named columns in the `.omx` file, and the arithmetic is exact decimal. Change the data and `omasheet render report.md --html` gives you a fresh report.
 
 That was done via a very, very simple AI request:- "make a report from that .csv using Omasheet". And you can imagine that a wide variety of prompt controls could be done from colours and layout, through to details on the analysis level and can be setup to be done on a recurring basis.
 

@@ -19,14 +19,11 @@ description: >- # this means to ignore newlines until "baseurl:"
   What Markdown is to text, Omasheet is to numbers: a plain-text spreadsheet
   format with columns as the computational model and exact (not
   floating-point) arithmetic.
-minimal_mistakes_skin: dark
 search: false
-logo: "/assets/images/logo.svg"
 copyright: "Stephen Roe"
 
 # Build settings
 markdown: kramdown
-remote_theme: mmistakes/minimal-mistakes
 url: "https://omasheet.org"
 baseurl: ""
 repository: "librasteve/omasheet.org"
@@ -55,6 +52,7 @@ exclude:
   - vendor/ruby/
   - external/
   - tools/
+  - messages.txt
 
 # Plugins (previously gems:)
 plugins:
@@ -63,38 +61,9 @@ plugins:
   - jekyll-feed
   - jekyll-include-cache
 
-author:
-  avatar : "/assets/images/logo.svg"
-  bio    : "Source code:"
-  links:
-    - label: "Omasheet"
-      icon: "fab fa-fw fa-github"
-      url: "https://github.com/librasteve/omasheet"
-
 defaults:
-  # _posts
   - scope:
       path: ""
       type: posts
     values:
-      layout: single
-      author_profile: true
-      read_time: true
-      show_date: true
-      comments: true
-      share: true
-      related: true
-  # _pages
-  - scope:
-      path: "_pages"
-      type: pages
-    values:
-      layout: single
-      author_profile: true
-
-category_archive:
-  type: liquid
-  path: /categories/
-tag_archive:
-  type: liquid
-  path: /tags/
+      layout: post

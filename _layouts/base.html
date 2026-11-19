@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{%- assign title = page.title | default: site.title -%}
+{%- unless page.url == '/' -%}{%- assign title = title | append: ' · Omasheet' -%}{%- endunless -%}
+{%- assign desc = page.excerpt | default: page.description | default: site.description | strip_html | strip_newlines | strip | escape -%}
+{%- assign img = page.image | default: page.header.teaser | default: '/r/v0.1.12/card.png' -%}
+<title>{{ title | escape }}</title>
+<meta name="description" content="{{ desc }}">
+<meta name="theme-color" content="#13141c">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:site_name" content="Omasheet">
+<meta property="og:title" content="{{ title | escape }}">
+<meta property="og:description" content="{{ desc }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ img | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/assets/images/favicon.svg">
+<link rel="apple-touch-icon" href="/assets/images/favicon.svg">
+<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="Omasheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<script defer src="https://cloud.umami.is/script.js" data-website-id="190969d7-2649-4f89-b0b6-072fc7972d83"></script>
+</head>
+<body>
+<div class="sky"></div>
+<div class="wrap">
+{% include site-nav.html %}
+{{ content }}
+</div>
+{% include site-footer.html %}
+<script>
+  document.querySelectorAll(".copy").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var t = b.parentNode.querySelector("pre").textContent.trim();
+      (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(function () {
+        b.textContent = "copied"; setTimeout(function () { b.textContent = "copy"; }, 1500);
+      }, function () { b.textContent = "press ⌘C"; });
+    });
+  });
+  if ("IntersectionObserver" in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".rise").forEach(function (el) { io.observe(el); });
+  } else {
+    document.querySelectorAll(".rise").forEach(function (el) { el.classList.add("in"); });
+  }
+</script>
+</body>
+</html>

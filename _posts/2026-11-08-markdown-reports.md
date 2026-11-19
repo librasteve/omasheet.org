@@ -27,7 +27,7 @@ What's going on? Omasheet helps you to embed data into a wider markdown context.
 
 1. Keyword `sheet` introduces and names the data
 1. The `*` wildcards on calculated on the fly
-1. Put functions such as `today()` and `.sum()` in `{{...}}`
+1. Put functions such as `today()` and `.sum()` in `{% raw %}{{...}}{% endraw %}`
 
 Simples! Follow the Getting Started to try it yourself.
 
