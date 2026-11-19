@@ -7,7 +7,7 @@ One sentence per block on the homepage (`index.html`), in page order, then every
 - **Nav**: Everything you need is one click away: features, command line, install, guide, posts and source code.
 - **Hero (badge, headline, lead)**: What Markdown is to words, Omasheet is to numbers: a text-native spreadsheet for technical workflows, with exact arithmetic, SI units, scientific uncertainty and typed columns, in files you can diff, review and hand to an AI.
 - **Hero buttons**: Install it now, or star the project on GitHub.
-- **Hero screenshot**: This is the app: a Benchmark sheet with input data, measured duration and memory, and calculated columns for throughput and performance change, defined once and checked as you work.
+- **Hero screenshot**: This is the app: a Benchmark sheet with input data, measured duration and memory, and calculated columns for Change (Warm vs. Cold) and whether Cold beats the 50ms target, defined once and checked as you work.
 - **Facts strip**: One Rust binary for macOS, Windows and Linux, built on Polars. No account, no cloud, open source under the MIT licence.
 
 ### Section: What a binary workbook cannot do
