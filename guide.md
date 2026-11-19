@@ -14,4 +14,8 @@ wide: true
 
 {% include_relative external/omasheet/docs/interop.md %}
 {% endcapture %}
-{{ content }}
+{{ content | remove: "Copyright (c) 2026 Stephen Roe. MIT licence." }}
+
+---
+
+Copyright (c) 2026 Stephen Roe. MIT licence.
