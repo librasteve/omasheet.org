@@ -11,22 +11,25 @@ image: /r/v0.1.12/card.png
   <p class="lead">A <b>text-native spreadsheet</b> for technical workflows, with <b>exact</b> arithmetic, <b>SI units</b>, scientific <b>uncertainty</b> and typed columns. In files you can diff, review and hand to an&nbsp;AI.</p>
   <div class="cta">
     <a class="btn primary" href="#install">Install</a>
-    <a class="btn" href="https://github.com/librasteve/omasheet">Star it on GitHub</a>
+    <a target="_blank" rel="noopener" class="btn" href="https://github.com/sponsors/librasteve">♥ Donate</a>
   </div>
+  <p class="cta-alt"><a href="https://www.patreon.com/cw/librasteve/membership">Support on Patreon</a> · <a target="_blank" rel="noopener" href="https://github.com/librasteve/omasheet">★ Star on GitHub</a></p>
   <div class="window">
     <img src="/assets/images/screenshot.png" alt="This is the app: a Benchmark sheet with input data, measured duration and memory, and calculated columns for Change (Warm vs. Cold) and whether Cold beats the 50ms target, defined once and checked as you work.">
   </div>
   <ul class="facts">
-    <li>one Rust binary</li>
-    <li>built on Polars</li>
     <li>Omarchy first</li>
+    <li>your theme</li>
+    <li>keys or mouse</li>
+    <li>built on Polars</li>
     <li>macOS · Windows · Linux</li>
-    <li>open source, MIT</li>
+    <li>Rust</li>
+    <li>MIT</li>
   </ul>
 </header>
 
 <section id="features">
-  <h2>What a binary workbook cannot do</h2>
+  <h2>Spreadsheets, fixed.</h2>
   <p class="sub">Formulas are written once per column, files are plain text, and numbers keep their meaning. A spreadsheet you can understand, check, version and automate.</p>
 
   <div class="feature codewide rise">
@@ -58,14 +61,14 @@ Beats_50ms <span class="k">:=</span> Cold &lt;= Target</pre></div>
       <p><code class="i">5kg + 300g</code> is <code class="i">5.3kg</code>; <code class="i">5kg + 3m</code> is an error that explains why. Dimensional analysis catches mistakes before they become plausible results.</p>
       <p>All the SI prefixes, angles, time and binary data sizes, with uncertainty that carries through your arithmetic.</p>
     </div>
-    <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">&gt;</span> 5kg + 300g
-<span class="k">5.3kg</span>
+    <div class="term"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">&gt;</span> 5kg±100g + 300g
+<span class="k">5.30(10)kg</span>
 <span class="p">&gt;</span> 9.81m.s^-2 * 2s
-<span class="k">19.62m.s^-1</span>
+<span class="k">19.62m⋅s⁻¹</span>
 <span class="p">&gt;</span> sin(45°30′30″)
 <span class="k">0.713·</span>
-<span class="p">&gt;</span> 5kg ± 100g
-<span class="k">5.00(10)kg</span>
+<span class="p">&gt;</span> €100.to('$')
+<span class="k">109.673USD·</span>
 <span class="p">&gt;</span> 5kg + 3m
 <span class="v">error: cannot add kg and m: they measure Mass and Length</span></pre></div>
   </div>
@@ -74,10 +77,23 @@ Beats_50ms <span class="k">:=</span> Cold &lt;= Target</pre></div>
     <div class="words">
       <div class="kicker">Types</div>
       <h3>Exact numbers, scientific meaning</h3>
-      <p>Fractions are exact without limit, Decimals keep money to the penny, and scientific notation carries uncertainty. From <code class="i">1/3 + 1/6 = 1/2</code> to CODATA constants, numbers mean what they say.</p>
-      <p>The numeric types run <code class="i">Integer</code> &lt; <code class="i">Fraction</code> &lt; <code class="i">Decimal</code> &lt; <code class="i">Float</code> &lt; <code class="i">Scientific</code> &lt; <code class="i">Complex</code>, from exact to wide-ranging.</p>
+      <p>Fractions are exact without limit, Decimals keep money to the penny, and scientific notation carries uncertainty.</p>
+      <p>From <code class="i">1/3 + 1/6 == 1/2</code> to physical constants such as <b>G</b>: <code class="i">6.67430(15)e-11 m³⋅kg⁻¹⋅s⁻²</code>, numbers mean what they say.</p>
     </div>
-    <div class="shot"><img src="/assets/images/types.png" alt="A sheet of typed columns: Text, Int, Decimal, Fraction, Percent, Num, Complex and Bool" loading="lazy"></div>
+    <div class="shot types">
+      <table>
+        <thead><tr><th>Type</th><th>Group</th><th>Literal</th><th>Representations</th></tr></thead>
+        <tbody>
+          <tr><td class="ex ext exl"><code>Integer</code></td><td class="ex ext exr">ℤ</td><td><code>1</code></td><td><code>0xff</code>, <code>0o17</code>, <code>0b101</code></td></tr>
+          <tr><td class="ex exl"><code>Fraction</code></td><td class="ex exr">ℚ</td><td><code>&lt;1/7&gt;</code></td><td><code>1/7</code>, <code>2 3/4</code></td></tr>
+          <tr><td class="ex exb exl"><code>Decimal</code></td><td class="ex exb exr">ℚ</td><td><code>1.0</code></td><td><code>14.29%</code></td></tr>
+          <tr><td><code>Float</code></td><td>ℝ</td><td><code>1e0</code></td><td>-</td></tr>
+          <tr><td><code>Scientific</code></td><td>ℝ</td><td><code>1.01(01)e0</code></td><td><code>1 ± 0.01</code></td></tr>
+          <tr><td><code>Complex</code></td><td>ℂ</td><td><code>3+4i</code></td><td>-</td></tr>
+        </tbody>
+      </table>
+      <p class="legend"><i></i> the exact domain</p>
+    </div>
   </div>
 
   <div class="feature flip rise">
@@ -85,8 +101,9 @@ Beats_50ms <span class="k">:=</span> Cold &lt;= Target</pre></div>
       <div class="kicker">Reports</div>
       <h3>Markdown in, finished report out</h3>
       <p>Put a sheet inside a Markdown document and render it to HTML, so calculations, data and explanation live together in one reviewable file.</p>
+      <p>Have your AI run this on every build, apply a theme, save to the repo and post to your intranet or email the team.</p>
     </div>
-    <div class="shot"><img src="/assets/images/spreadmeetsmd.png" alt="A spreadsheet and a Markdown report side by side" loading="lazy"></div>
+    <div class="shot"><img src="/assets/images/benchmarks-report.png" alt="A rendered report, Opening a big file, with a table of benchmark runs and sentences whose figures are worked out from the sheet" loading="lazy"></div>
   </div>
 
   <div class="feature rise">
@@ -108,7 +125,7 @@ budget with VAT, in pounds, to the penny.
 <section>
   <h2>And the rest</h2>
   <div class="cards">
-    <div class="card rise"><h4>Windowed columns</h4><p><code>cum_sum</code>, <code>diff</code>, <code>rank</code> and <code>rolling_mean</code> run on Polars, with partitioning using <code>by</code>.</p></div>
+    <div class="card rise"><h4>Windowed columns</h4><p>Filter, <code>sort</code>, <code>group_by</code>, <code>agg</code>, <code>select</code>, <code>apply</code>, etc. run as Polars queries with streaming and lazy execution.</p></div>
     <div class="card rise"><h4>Built-in constants</h4><p><code>pi</code>, <code>c</code>, <code>planck</code>, <code>kB</code> and <code>NA</code> are ready in every file, drawing on the 2019 SI and CODATA 2022.</p></div>
     <div class="card rise"><h4>Real interchange</h4><p>Import and export XLSX, CSV, JSON and Parquet, preserving types and units wherever the format allows.</p></div>
     <div class="card rise"><h4>Booleans and logic</h4><p>Symbol formats such as ticks and crosses, logic functions and gate operators, all directly in the grid.</p></div>
@@ -139,7 +156,7 @@ budget with VAT, in pounds, to the penny.
   <h2>The same on the command line</h2>
   <p class="sub">Everything the app does is scriptable, so sheets work in CI, Git hooks and AI-agent loops.</p>
   <div class="term wide"><div class="bar"><i></i><i></i><i></i></div><pre><span class="p">$</span> omasheet                              <span class="c"># the app, on a new file</span>
-<span class="p">$</span> omasheet examples/budget.omx          <span class="c"># open an .omx, .csv, .json or .xlsx</span>
+<span class="p">$</span> omasheet examples/budget.omx          <span class="c"># open an .omx, .csv, .json, .xlsx or .parquet</span>
 <span class="p">$</span> omasheet print examples/budget.omx    <span class="c"># print the calculated file</span>
 <span class="p">$</span> omasheet eval <span class="v">'1/3 + 1/6'</span>             <span class="c"># 1/2, exactly</span>
 <span class="p">$</span> omasheet export budget.omx --xlsx     <span class="c"># or --csv --json --parquet</span>
@@ -150,7 +167,7 @@ budget with VAT, in pounds, to the penny.
   <h2>Install</h2>
   <p class="sub">Run the same line again to update. Releases are checksummed and carry build provenance.</p>
   <div class="install">
-    <div class="box"><h4>macOS · Omarchy · Arch Linux</h4><button class="copy">copy</button><pre>curl -fsSL https://raw.githubusercontent.com/librasteve/omasheet/main/install.sh | bash</pre></div>
+    <div class="box"><h4>Omarchy · macOS · Arch Linux</h4><button class="copy">copy</button><pre>curl -fsSL https://raw.githubusercontent.com/librasteve/omasheet/main/install.sh | bash</pre></div>
     <div class="box"><h4>Windows · PowerShell</h4><button class="copy">copy</button><pre>irm https://raw.githubusercontent.com/librasteve/omasheet/main/install.ps1 | iex</pre></div>
   </div>
   <p class="note">Or search for Omasheet in OmaStore. Other Linux? <a href="https://github.com/librasteve/omasheet#install">Build from source</a>. The latest is on the <a href="https://github.com/librasteve/omasheet/releases/latest">releases page</a>. Early and changing; it may contain errors.</p>
