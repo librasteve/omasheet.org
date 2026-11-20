@@ -117,6 +117,7 @@ code.i { padding: 2px 7px; border-radius: 6px; background: var(--raised); color:
 footer { margin-top: 110px; padding: 34px 0 54px; border-top: 1px solid var(--line); color: var(--dim); font-size: 15px; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 14px 28px; align-items: center; }
 footer .right { margin-left: auto; }
+footer .legal { margin: 14px 0 0; font-size: 13px; }
 
 .rise { opacity: 0; transform: translateY(26px); transition: opacity .7s ease, transform .7s ease; }
 .rise.in { opacity: 1; transform: none; }
