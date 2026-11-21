@@ -12,6 +12,55 @@ layout: base
 <script>
 (function () {
   var doc = document.getElementById("doc");
+
+  // A copy button at the top right of every code block.
+  var ICON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>';
+  var TICK = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12 5 5 9-10"/></svg>';
+  doc.querySelectorAll("pre").forEach(function (pre) {
+    var wrap = document.createElement("div");
+    wrap.className = "codewrap";
+    pre.parentNode.insertBefore(wrap, pre);
+    wrap.appendChild(pre);
+    var b = document.createElement("button");
+    b.type = "button"; b.className = "codecopy"; b.setAttribute("aria-label", "Copy code");
+    b.innerHTML = ICON;
+    wrap.appendChild(b);
+    b.addEventListener("click", function () {
+      var text = pre.innerText.replace(/\n$/, "");
+      var done = function () {
+        b.innerHTML = TICK; b.classList.add("ok");
+        setTimeout(function () { b.innerHTML = ICON; b.classList.remove("ok"); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done);
+      else {
+        var t = document.createElement("textarea"); t.value = text; document.body.appendChild(t);
+        t.select(); document.execCommand("copy"); t.remove(); done();
+      }
+    });
+  });
+
+  // Master caret: open or close every section at once.
+  var secs = doc.querySelectorAll("details.sec");
+  if (secs.length) {
+    var all = document.createElement("button");
+    all.type = "button"; all.className = "master";
+    all.innerHTML = '<span></span>';
+    secs[0].parentNode.insertBefore(all, secs[0]);
+    var sync = function () {
+      var every = Array.prototype.every.call(secs, function (d) { return d.open; });
+      all.classList.toggle("open", every);
+      all.firstChild.textContent = every ? "Collapse all" : "Expand all";
+      all.setAttribute("aria-expanded", every);
+    };
+    all.addEventListener("click", function () {
+      var open = !all.classList.contains("open");
+      secs.forEach(function (d) { d.open = open; });
+      sync();
+    });
+    secs.forEach(function (d) { d.addEventListener("toggle", sync); });
+    sync();
+  }
+
   var heads = doc.querySelectorAll("h1[id], h2[id]");
   if (heads.length < 3) { document.querySelector(".docs").classList.add("nonav"); return; }
   var html = "", open = false;
@@ -31,6 +80,39 @@ layout: base
   m.insertAdjacentHTML("beforeend", '<nav>' + html + '</nav>');
   m.addEventListener("click", function (e) { if (e.target.tagName === "A") m.open = false; });
 
+  var locked = null;   // a menu click holds the highlight until the reader scrolls
+  function reveal(id) {
+    var t = id && document.getElementById(id);
+    for (var d = t; d; d = d.parentElement) if (d.tagName === "DETAILS") d.open = true;
+    var box = t && t.closest("details.sec");
+    if (box) box.scrollIntoView();
+  }
+  // Any link to an anchor on this page, from the menu or the text, opens the
+  // section it points into and scrolls to it.
+  document.addEventListener("click", function (e) {
+    var a = e.target.closest && e.target.closest('a[href^="#"]');
+    if (!a || a.getAttribute("href").length < 2) return;
+    var id = decodeURIComponent(a.getAttribute("href").slice(1));
+    if (!document.getElementById(id)) return;
+    e.preventDefault();
+    history.replaceState(null, "", "#" + id);
+    reveal(id);
+    if (links[id]) { locked = id; setActive(id); }
+  });
+  window.addEventListener("hashchange", function () { reveal(decodeURIComponent(location.hash.slice(1))); });
+  // A reload starts fresh: the browser (and a #hash left by the menu) must not
+  // bring back sections that were open.
+  var nav = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+  var reset = function () {
+    doc.querySelectorAll("details").forEach(function (d) { d.open = d.hasAttribute("data-start"); });
+    window.scrollTo(0, 0);
+  };
+  if (nav && nav.type === "reload") {
+    history.replaceState(null, "", location.pathname + location.search);
+    window.addEventListener("load", function () { reset(); if (typeof sync === "function") sync(); });
+    reset();
+  } else if (location.hash) reveal(decodeURIComponent(location.hash.slice(1)));
+
   var links = {};
   document.querySelectorAll("#docnav a").forEach(function (a) { links[a.dataset.id] = a; });
   var current = null;
@@ -42,10 +124,14 @@ layout: base
     if (a.offsetTop < box.scrollTop + 40 || a.offsetTop > box.scrollTop + box.clientHeight - 60) box.scrollTop = a.offsetTop - 120;
   }
   function spy() {
+    if (locked) return;
     var y = window.scrollY + 110, best = heads[0].id;
     heads.forEach(function (h) { if (h.getBoundingClientRect().top + window.scrollY <= y) best = h.id; });
     setActive(best);
   }
+  ["wheel", "touchmove", "keydown"].forEach(function (ev) {
+    window.addEventListener(ev, function () { if (locked) { locked = null; spy(); } }, { passive: true });
+  });
   window.addEventListener("scroll", spy, { passive: true });
   window.addEventListener("resize", spy);
   spy();
