@@ -15,12 +15,17 @@ trap 'rm -rf "$SRC"' EXIT
 
 rsync -a --exclude .git --exclude _site --exclude vendor/bundle --exclude .bundle "$ROOT/" "$SRC/"
 
-(cd "$SRC" && ruby scripts/escape_liquid.rb \
-  external/omasheet/README.md \
-  external/omasheet/docs/format.md \
-  external/omasheet/docs/expressions.md \
-  external/omasheet/docs/app.md \
-  external/omasheet/docs/interop.md >/dev/null)
+# To preview docs that are not on omasheet main yet, point at a checkout:
+#   OMASHEET_REPO=../omasheet scripts/preview.sh
+if [ -n "${OMASHEET_REPO:-}" ]; then
+  rsync -a --delete "$OMASHEET_REPO/docs/" "$SRC/external/omasheet/docs/"
+  cp "$OMASHEET_REPO/README.md" "$SRC/external/omasheet/README.md"
+fi
+
+# Only escape the docs that exist in this checkout (the submodule may lag behind).
+(cd "$SRC" && files=""; for f in README.md docs/format.md docs/expressions.md docs/app.md docs/interop.md; do
+  [ -f "external/omasheet/$f" ] && files="$files external/omasheet/$f"; done
+  ruby scripts/escape_liquid.rb $files >/dev/null)
 
 cd "$ROOT"
 bundle exec jekyll build -s "$SRC" -d "$OUT"
