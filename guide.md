@@ -23,6 +23,7 @@ What to look at:
 - `Formula column` has one formula for every row. Edit it once and every row follows. The `=` marks a formula column.
 - `Head circle` opens the column control: sort ascending or descending, and a filter. See <a href="#sort-filter-query">Sort, Filter &amp; Query</a>.
 - `Right-click` the head for `Set type…`, `Set unit…` and `Set format…`, described in <a href="#types">Types</a>, <a href="#units">Units</a> and <a href="#formats">Formats</a>.
+- `Style bar` sits beside the formula box: undo and redo, bold, italic, heading level, alignment, width, freeze and hide. See <a href="#styles">Styles</a>.
 - `Footer` has a tab for each sheet, and three buttons on the right: `fn()` lists the functions, `</>` shows the source of the whole file, and `?` lists the keyboard shortcuts.
 
 </details>
@@ -950,6 +951,54 @@ A Boolean format is any two different characters, the symbol for true and then f
 </details>
 
 <details class="sec" id="s7" markdown="1">
+<summary><h2 id="styles">Styles</h2></summary>
+
+Styles are Markdown in the sheet itself, so they travel with the file and show in a diff. There is no style language to learn.
+
+<figure class="shot">
+<img src="/assets/images/style.png" alt="The Drinks sheet in the app with the Price column selected: the style bar above it shows undo and redo, bold, italic, heading level H2, summary, alignment, width, freeze, hide and clear. Item is bold, Qty italic, Price a heading, and the Total row larger.">
+<figcaption>The Drinks sheet, with the Price column selected. The style bar shows what the selection has: bold, heading level 2 and left alignment are lit. The source is below.</figcaption>
+</figure>
+
+Only the column head and/or the leftmost row cell carry style markdown, this is then extended over the whole grid. Styles can only be applied to whole columns or rows.
+
+```omx
+sheet Drinks
+
+Item  : String[wrap]
+
+| **Item**     | _Qty_        | ## **Price** | ^ Net |
+| :----------- | :----------: | :----------- | ----- |
+| Tea          | 3            | 4.50         | *     |
+| **Coffee**   | 2            | 7.25         | *     |
+| _Mugs_       | 6            | 9            | *     |
+| ## **Total** | 11           | 20.75        | *     |
+
+Net := Qty * Price
+```
+
+- `Alignment` is the colons of the rule line: `:---` left, `:---:` centre, `---:` right.
+- `Bold` and `italic` are `**x**` and `_x_`.
+- `Heading` is `## `, one to six `#`s.
+- `Width` is the length of a column's `---`, plus `:`s.
+- `Clip` and `wrap` set what a long text does at its column's edge: `String[clip]` or `String[wrap]`.
+
+**Blocks.** A heading opens a block to the next heading of its level or higher. `^` in front marks a row or column that sums its block up: it stands at the block's foot and stays in view when the block is closed. A `^ ###` sums up the `###` block it ends, and a plain `^` the block nearest to it. Inside a summary, `block` is the rows under the head, so every summary row is the same formula, e.g. `= [A; block].sum()`.
+
+A `rollup(keys) |> agg(...)` is a sheet of blocks made for you: a head row for each group, the groups inside it, and a summary row of the aggregates at the foot. In the app its keys are shown as one column, each row naming only its own level, and a summary is marked with a `Σ`.
+
+**In the app.** The style bar reads, left to right: `↶` `↷` for undo and redo, then `B`, `I`, `H` (heading level), `Σ` (summary), `☰` alignment, `⇔` width and `→` wrap, which are written to the file, and then `❄` and `⊘`, which are not. `✕` clears all styles from the selection.
+
+- `B`, `I`, `H` and `Σ` need whole rows or columns selected; on a block of cells the footer says so. `✕` clears the selection's styles, and its column width, after asking.
+- `❄` freezes the rows above and the columns to the left of the selected cell, so that they stay in view as the rest scrolls.
+- `⊘` hides the selected columns or rows, with a double line where something is hidden. `Hide empty` hides every row with nothing but its leftmost cell and every column with nothing in it, such as a block's empty head columns and rows. `Show last`, `Show all` and `Hide again` step back and forth.
+- `Carets` on a block's head fold it away. The corner buttons `0 1 2` open every block down to that depth. A block is drawn as a box, the outermost in a full line and the block inside it fainter, and never more than two levels.
+
+Folding, hiding and freezing belong to the reader's view. They are not kept in the file, and hidden cells still calculate.
+
+</details>
+
+<details class="sec" id="s8" markdown="1">
 <summary><h2 id="sort-filter-query">Sort, Filter &amp; Query</h2></summary>
 
 Chain stages with `|>`. Each stage takes a sheet and hands a new sheet to the next. Stages run on [Polars](https://pola.rs), so a table of millions of rows is as easy as a dozen.
@@ -1021,7 +1070,7 @@ A duration is compared with a quantity of time, `* > 1h` or `* < 90min`.
 
 </details>
 
-<details class="sec" id="s8" markdown="1">
+<details class="sec" id="s9" markdown="1">
 <summary><h2 id="reports">Reports</h2></summary>
 
 A report is a Markdown document with a sheet inside it. The numbers in the prose are worked out from the data, so the explanation and the calculation live in one file that can be reviewed and diffed.
@@ -1050,7 +1099,7 @@ omasheet render report.md --html -o report.html
 
 </details>
 
-<details class="sec" id="s9" markdown="1">
+<details class="sec" id="s10" markdown="1">
 <summary><h2 id="command-line">Command Line</h2></summary>
 
 Everything the app does is available on the command line. `omasheet` with no command, or with only a file, opens the app. Every other command prints or writes and returns.
@@ -1100,7 +1149,7 @@ An `.omx` file is readable text with typed columns and one formula per column, s
 
 </details>
 
-<details class="sec" id="s10" markdown="1">
+<details class="sec" id="s11" markdown="1">
 <summary><h2 id="import-export">Import / Export</h2></summary>
 
 Omasheet reads and writes XLSX Workbooks, CSV, JSON and Parquet files, so it fits in with the tools around it. Opening one of them in the app imports it, and **Ctrl+E** exports the file you have open as XLSX, CSV or JSON.
@@ -1121,7 +1170,7 @@ omasheet export budget.omx --parquet --meta    # keep the formulas in the Parque
 
 </details>
 
-<details class="sec" id="s11" markdown="1">
+<details class="sec" id="s12" markdown="1">
 <summary><h2 id="shortcuts">Keyboard Shortcuts</h2></summary>
 
 Press Ctrl+? in the app, or the `?` button at the foot, to show this list, which is copied here as the app shows it.
