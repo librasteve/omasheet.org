@@ -1173,10 +1173,10 @@ omasheet export budget.omx --parquet --meta    # keep the formulas in the Parque
 <details class="sec" id="s12" markdown="1">
 <summary><h2 id="shortcuts">Keyboard Shortcuts</h2></summary>
 
-Press Ctrl+? in the app, or the `?` button at the foot, to show this list, which is copied here as the app shows it.
+Press Ctrl+/ (Cmd+/ on a Mac) in the app, or the `?` button at the foot, to show this list, which is copied here as the app shows it.
 
 ```text
-Ctrl+?               Help
+Ctrl+/               Help
 Ctrl+.               Action menu
 Ctrl+Z / Ctrl+Y      Undo / redo
 
@@ -1190,16 +1190,16 @@ Ctrl+Shift+T         Paste transposed
 Delete               Clear
 Ctrl+Delete          Delete
 
-Ctrl+O / S           Open / save
+Ctrl+O / S           Open (in a new window) / save
 Ctrl+Shift+S         Save as
 Ctrl+E               Export
 
 Ctrl+K               New constant
 Ctrl+Shift+F         Filter this column
 Ctrl+D               Duplicate sheet
-Ctrl+N               New sheet
+Ctrl+Alt+N           New sheet
 Ctrl+Shift+N         New window
-Ctrl+Alt+N           New file
+Ctrl+N               New file, in a new window
 Ctrl+W               Close this window
 
 Ctrl+Enter           Insert row/col after
