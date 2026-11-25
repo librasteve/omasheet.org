@@ -24,7 +24,7 @@ What to look at:
 - `Head circle` opens the column control: sort ascending or descending, and a filter. See <a href="#sort-filter-query">Sort, Filter &amp; Query</a>.
 - `Right-click` the head for `Set type…`, `Set unit…` and `Set format…`, described in <a href="#types">Types</a>, <a href="#units">Units</a> and <a href="#formats">Formats</a>.
 - `Style bar` sits beside the formula box: undo and redo, bold, italic, heading level, alignment, width, freeze and hide. See <a href="#styles">Styles</a>.
-- `Footer` has a tab for each sheet, and three buttons on the right: `fn()` lists the functions, `</>` shows the source of the whole file, and `?` lists the keyboard shortcuts.
+- `Footer` has a tab for each sheet, and four buttons on the right: <img src="/assets/images/plots-glyph.png" alt="the plots button" style="display:inline;height:1.4em;margin:0 .1em;vertical-align:middle;border:0;border-radius:4px;box-shadow:none"> shows the plot pane (see <a href="#plots">Plots</a>), `fn()` lists the functions, `</>` shows the source of the whole file, and `?` lists the keyboard shortcuts.
 
 </details>
 
@@ -1038,7 +1038,7 @@ The file is scanned lazily, never read into memory whole, and a formula column i
 **Filtering in the app.** The circle at the right of a column's header opens its popup: **Sort Ascending**, **Sort Descending**, and the column's filter. A filter is an expression in which `*` is the cell, such as `* >= 3`, and the rows it is not true of are hidden. The box turns red while the expression is wrong, and holding the pointer over it says why, so the popup opens at once on a view of millions of rows. **Apply** applies it and leaves the popup open to try another, **Clear filter** removes it, and **Close** or Esc closes it. The circle is solid while the column is filtered, and filters on several columns all apply. Ctrl+Shift+F opens the popup of the column the cursor is in. A filter is a view and nothing more: the file, a save and an export still hold every row.
 
 <details markdown="1">
-<summary>Operators: what a filter can say</summary>
+<summary>Operators</summary>
 
 The **Operators** button opens this legend, trimmed to the column's type. It compares values, not what is shown, so `* == 3` finds a cell shown as `3.00`. An empty cell fails every comparison, so `* != 3` hides it too, and `* != 3 or * == ''` keeps it.
 
@@ -1070,6 +1070,74 @@ A duration is compared with a quantity of time, `* > 1h` or `* < 90min`.
 
 </details>
 
+<details class="sec" id="s13" markdown="1">
+<summary><h2 id="plots">Plots</h2></summary>
+
+<figure class="shot">
+<img src="/assets/images/plots.png" alt="The Gravity sheet in the app with the plot pane beside it: a candle plot of local gravity by lab, and to its right the settings pane with the plot kinds as tiles, the data, the title, the x and y columns as chips, and the options.">
+<figcaption>The Gravity sheet with its plot beside it, and the settings pane on the right: kind tiles, data, title, the columns as chips and the options. The source is below.</figcaption>
+</figure>
+
+A plot is declared in the file, just as a sheet is, and reads a sheet. It is plain text too, so it travels with the file and shows in a diff.
+
+```omx
+sheet Gravity
+
+G : Acceleration[m.s^-2]
+
+| Lab        | G          |
+| ---------- | ---------- |
+| Teddington | 9.8123(21) |
+| Paris      | 9.8091(34) |
+| Potsdam    | 9.8139(18) |
+| Boulder    | 9.8010(60) |
+| Tokyo      | 9.7981(27) |
+
+// A value with an uncertainty: a body of one standard deviation and a
+// wick of two.
+plot Labs
+type: candle
+data: Gravity
+title: Local gravity g (m/s²) by lab
+```
+
+`plot Name` is followed by `key: value` lines up to the next blank line. Only `type` is required. The plot may come before or after its sheet, and its name must not be that of a sheet, a constant or another plot.
+
+- `type` is one of fourteen kinds: `line`, `bar`, `pie`, `candle`, `scatter`, `area`, `stacked`, `step`, `histogram`, `box`, `heatmap`, `waterfall`, `bubble` or `donut`.
+- `data` is a sheet by name, or one piped through stages, as in `Readings |> select(Time, Value, Limit)`. To plot a grouping or a join, plot the sheet that holds it by name.
+- `x` is the column of labels (the first column of `data` if left out) and `y` the columns of values, `Revenue, Cost` (all the others if left out). Numbers, percentages, quantities and durations can be plotted, while dates and text in `x` are labels in the order of the rows.
+- `title`, `width` and `height` (in pixels, 640 by 360 if left out) and `legend` (`true` or `false`) set the look. `palette` is `classic`, `vivid`, `pastel`, `earth`, `cool`, `warm` or `mono`.
+- `labels` writes each value at its mark, `ticks` draws the axis along the edge, `units` writes a quantity's unit at the axis and `origin` makes an axis reach zero. Each takes `x`, `y` or `both`.
+- `logx` and `logy` make an axis logarithmic. `fit` is `straight`, `quadratic` or `bezier` and draws a dashed curve through each series, with its equation for the least-squares fits.
+- `bins` sets the bars of a `histogram`, and `k` the width of a `candle`'s body in standard deviations.
+- A value with an uncertainty, `10.5(3)`, gets an error bar on a line, scatter or bar plot.
+
+<details markdown="1">
+<summary>Kinds</summary>
+
+- `line` has a line for each `y` column, and an empty cell breaks it. Where every `x` is a number, a `line`, `step` or `area` is drawn at them on a numeric axis, and a `scatter` or `bubble` needs them.
+- `bar` groups the columns' bars, and `stacked` puts them one on another.
+- `area` fills under its lines, and `step` holds each value until the next row.
+- `scatter` is a point for each value, and `bubble` a point for each row: its height is the first `y` column and its size the second.
+- `pie` takes one `y` column of values that are not negative and shows each slice's share. `donut` is a pie with a hole.
+- `histogram` counts the values of each `y` column in shared bins, and `box` shows the quartiles, the median, whiskers and the outliers.
+- `heatmap` is a cell for each value, as dark as it is large, with a row for each row of `data` and a column for each `y` column.
+- `waterfall` takes one `y` column of changes, draws each from where the last ended, and ends with a bar for the total.
+- `candle` is for uncertainty. One `Scientific` column is drawn as a body of the value ± `k`σ with a wick of ± 2`k`σ, and four columns are read as open, high, low and close.
+
+</details>
+
+**In the app.** `F7`, or the bars button in the footer, shows the plot pane beside the sheet. A click on a line or a bar lights up its row in the sheet, and on a heatmap its cell.
+
+- `+ Plot` in the footer makes a plot: a name, a kind and the data, which is the sheet on view to begin with.
+- `⚙` at the top right of the pane opens its settings: the `type` as tiles of pictures (a kind the data does not suit is dimmed, and says why), the `data` expression, the columns as chips (one for `x` and any number ticked for `y`), the other options, and the `palette`. A field takes its change when Enter is pressed or it is left.
+- `⋯` renames or deletes the plot.
+- `F7` steps round the plots and the plot settings, and `Esc` steps back.
+
+**In a report.** Write `{{ Name }}` where the plot should go and a report draws it as an SVG in the page itself. See <a href="#reports">Reports</a>.
+
+</details>
+
 <details class="sec" id="s9" markdown="1">
 <summary><h2 id="reports">Reports</h2></summary>
 
@@ -1094,6 +1162,7 @@ omasheet render report.md --html -o report.html
 
 - `files:` names the `.omx` files. A fenced `omx` block is a file too, so a sheet can sit inside the document.
 - `{{ expression }}` is replaced by its value, and a sheet becomes a Markdown table.
+- `{{ Name }}`, where `Name` is a plot, is replaced by its SVG, in the page itself with no other files. See <a href="#plots">Plots</a>.
 - A tool that does not know Omasheet shows the braces as they are, so a report stays readable on GitHub.
 - `--now` and `--seed` fix `today()` and `rand()`, so a rebuilt report can be compared with the last one. Run `render` as part of a build to keep a report fresh.
 
@@ -1177,7 +1246,7 @@ Press Ctrl+/ (Cmd+/ on a Mac) in the app, or the `?` button at the foot, to show
 
 ```text
 Ctrl+/               Help
-Ctrl+.               Action menu
+Ctrl+.               Context menu
 Ctrl+Z / Ctrl+Y      Undo / redo
 
 Ctrl++ / Ctrl+-      Zoom in / out
@@ -1187,33 +1256,36 @@ Ctrl+C / X / V       Copy / cut / paste
 Ctrl+Shift+V         Paste values
 Ctrl+Shift+R         Paste references
 Ctrl+Shift+T         Paste transposed
+Ctrl+Shift+F         Paste format
 Delete               Clear
 Ctrl+Delete          Delete
 
-Ctrl+O / S           Open (in a new window) / save
+Ctrl+O / S           Open / Save
 Ctrl+Shift+S         Save as
 Ctrl+E               Export
 
 Ctrl+K               New constant
-Ctrl+Shift+F         Filter this column
 Ctrl+D               Duplicate sheet
 Ctrl+Alt+N           New sheet
 Ctrl+Shift+N         New window
-Ctrl+N               New file, in a new window
-Ctrl+W               Close this window
+Ctrl+N               New file
+Ctrl+W               Close window
 
 Ctrl+Enter           Insert row/col after
 Ctrl+Shift+Enter     Insert row/col before
 Ctrl+Arrows          Go to end cell
-Ctrl+Alt+L/R         Previous / next sheet
+Shift+Arrows         Select block
+Ctrl+Alt+Left/Right  Previous / next sheet
 Ctrl+Alt+Shift+L/R   Move sheet left / right
 Alt+Enter            Newline
 Ctrl+click           Open link
 
-F1                   View functions
+F1                   Functions help
 F2                   Edit
 F3                   View source
-F4                   Cycle column settings
+F4                   Column sort, filter & settings
+F6                   Style bar
+F7                   Plot pane
 F11                  Fullscreen
 
 A cell starting with = is a formula
